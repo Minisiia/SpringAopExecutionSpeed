@@ -3,7 +3,7 @@ package execution_speed.main;
 import execution_speed.objects.Manager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import execution_speed.objects.FileManager;
+
 
 /**
  * Вивести швидкість виконання лише тих методів, які позначені @ShowTime.
