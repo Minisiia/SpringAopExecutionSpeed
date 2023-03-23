@@ -4,12 +4,12 @@ import execution_speed.objects.Manager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-
 /**
  * Вивести швидкість виконання лише тих методів, які позначені @ShowTime.
  * Вивести результати в консоль тільки для тих методів, які позначені @ShowResult.
  * Самостійно створити @ShowTime та @ShowResult.
  */
+
 public class Start {
 
 	public static void main(String[] args) {
