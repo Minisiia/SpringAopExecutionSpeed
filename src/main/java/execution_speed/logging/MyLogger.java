@@ -11,13 +11,13 @@ import java.util.Set;
 @Aspect
 public class MyLogger {
     private static long time;
-    private static Set<Object> set;
-    private static Map<String, Object> map;
+    private static Set<String> set;
+    private static Map<String, Integer> map;
 
     public MyLogger() {
     }
 
-    public MyLogger(long time, Set<Object> set, Map<String, Object> map) {
+    public MyLogger(long time, Set<String> set, Map<String, Integer> map) {
         MyLogger.time = time;
         MyLogger.set = set;
         MyLogger.map = map;
@@ -27,12 +27,12 @@ public class MyLogger {
         return time;
     }
 
-    public static Set<Object> getSet() {
+    public static Set<String> getSet() {
         return set;
     }
 
 
-    public static Map<String, Object> getMap() {
+    public static Map<String, Integer> getMap() {
         return map;
     }
 
