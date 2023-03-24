@@ -23,16 +23,16 @@ public class Start {
         ApplicationContext context = new ClassPathXmlApplicationContext("context.xml");
         FileManager fileManager = new FileManager();
         Class<?> clazz = fileManager.getClass();
-        System.out.println((char) 27 + "[34m" + "Methods are annotated with @ShowTime: " + (char) 27 + "[38m");
+        System.out.println((char) 27 + "[34m" + "Methods annotated with @ShowTime: " + (char) 27 + "[38m");
         Method[] methods = clazz.getMethods();
         for (Method method : methods) {
             if (method.isAnnotationPresent(ShowTime.class)) {
                 fileManager = (FileManager) context.getBean("fileManager");
                 method.invoke(fileManager, "c:\\Windows\\");
-                System.out.println("Method name: " + method.getName() + " time: " + MyLogger.getTime());
+                System.out.println("Method name: " + method.getName() + " time: " + MyLogger.getTime() + " ms");
             }
         }
-        System.out.println((char) 27 + "[34m" + "Methods are annotated with @ShowResult: " + (char) 27 + "[38m");
+        System.out.println((char) 27 + "[34m" + "Methods annotated with @ShowResult: " + (char) 27 + "[38m");
         for (Method method : methods) {
             if (method.isAnnotationPresent(ShowResult.class)) {
                 fileManager = (FileManager) context.getBean("fileManager");
