@@ -12,7 +12,8 @@ import java.util.Set;
 import java.util.TreeSet;
 
 @Component
-public class FileManager implements Manager {
+public class FileManager{
+
     @ShowTime
     @ShowResult
     public Set<String> getExtensionList(String folder) {

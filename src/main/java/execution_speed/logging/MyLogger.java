@@ -1,10 +1,7 @@
 package execution_speed.logging;
 
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -13,8 +10,34 @@ import java.util.Set;
 @Component
 @Aspect
 public class MyLogger {
+    private static long time;
+    private static Set<Object> set;
+    private static Map<String, Object> map;
 
-    @Pointcut("@annotation(execution_speed.annotations.ShowTime)")
+    public MyLogger() {
+    }
+
+    public MyLogger(long time, Set<Object> set, Map<String, Object> map) {
+        MyLogger.time = time;
+        MyLogger.set = set;
+        MyLogger.map = map;
+    }
+
+    public static long getTime() {
+        return time;
+    }
+
+    public static Set<Object> getSet() {
+        return set;
+    }
+
+
+    public static Map<String, Object> getMap() {
+        return map;
+    }
+
+
+    @Pointcut("@annotation(execution_speed.annotations.ShowTime))")
     private void showTime() {
     }
 
@@ -25,47 +48,23 @@ public class MyLogger {
     @Around("showTime()")
     public Object watchTime(ProceedingJoinPoint joinpoint) {
         long start = System.currentTimeMillis();
-        System.out.println("watchTime method begin: " + joinpoint.getSignature().toShortString() + " >>");
         Object output = null;
-
-		/*for (Object object : joinpoint.getArgs()) {
-			System.out.println("Param : " + object);
-		}*/
-
         try {
             output = joinpoint.proceed();
         } catch (Throwable e) {
             e.printStackTrace();
         }
-
-        long time = System.currentTimeMillis() - start;
-        System.out.println("watchTime method end: " + joinpoint.getSignature().toShortString() + ", time=" + time + " ms <<");
-        System.out.println();
-
+        time = System.currentTimeMillis() - start;
         return output;
     }
 
     @AfterReturning(pointcut = "showResult()", returning = "obj")
     public void print(Object obj) {
-
-        System.out.println("Print info begin >>");
-
         if (obj instanceof Set) {
-            Set set = (Set) obj;
-            for (Object object : set) {
-                System.out.println(object);
-            }
-
+            set = (Set) obj;
         } else if (obj instanceof Map) {
-            Map map = (Map) obj;
-            for (Object object : map.keySet()) {
-                System.out.println("key=" + object + ", " + map.get(object));
-            }
+            map = (Map) obj;
         }
-
-        System.out.println("Print info end <<");
-        System.out.println();
-
     }
 
 }
